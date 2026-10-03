@@ -1,3 +1,0 @@
-/home/ash/project/AshClipboard/build/CMakeFiles/AshClipboard.dir
-/home/ash/project/AshClipboard/build/CMakeFiles/edit_cache.dir
-/home/ash/project/AshClipboard/build/CMakeFiles/rebuild_cache.dir
