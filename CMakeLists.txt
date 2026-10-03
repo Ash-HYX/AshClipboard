@@ -4,8 +4,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(AshClipboard
     src/main.cpp
-    src/clipboard/win_clipboard.cpp
+    src/clipboard/clipboard.cpp
+    src/network/client.cpp
+    src/network/server.cpp
 )
-target_include_directories(AshClipboard PRIVATE
-include
+target_include_directories(AshClipboard
+    PUBLIC
+    ${PROJECT_SOURCE_DIR}/include
 )

@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"E:/Project/AshClipboard/build/cmake_install.cmake"
+		"/home/ash/project/AshClipboard/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

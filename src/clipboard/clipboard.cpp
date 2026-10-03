@@ -1,20 +1,21 @@
-#include "clipboard.h"
-#include "clipboard_guard.h"
+#include "clipboard/clipboard.h"
+#ifdef _WIN32
+#include "win_clipboard_guard.h"
 #include <windows.h>
 #include <cstring>
 
 std::string Clipboard::getText() const{
     ClipboardGuard guard; 
     if(!IsClipboardFormatAvailable(CF_UNICODETEXT)){
-        return "";
+        return {};
     }
     HANDLE handle = GetClipboardData(CF_UNICODETEXT);
     if(handle == nullptr){
-        return "";
+        return {};
     }
     wchar_t* text = static_cast<wchar_t*>(GlobalLock(handle)); 
     if(text == nullptr){
-        return "";
+        return {};
     }
     int size = WideCharToMultiByte(
         CP_UTF8,
@@ -69,3 +70,30 @@ void Clipboard::setText(const std::string& text){
     GlobalUnlock(handle);
     SetClipboardData(CF_UNICODETEXT, handle);
 }
+#elif defined(__linux__)
+#include <cstdio>
+#include <string>
+std::string Clipboard::getText() const{
+    FILE* pipe = popen("wl-paste", "r");
+    if(!pipe){
+        return {};
+    }
+    std::string res;
+    char buffer[4096];
+    while(fgets(buffer, sizeof(buffer), pipe)){
+        res += buffer;
+    }
+    pclose(pipe);
+    return res;
+}
+void Clipboard::setText(const std::string& text){
+    FILE* pipe = popen("wl-copy", "w");
+    if(!pipe){
+        return;
+    }
+    fwrite(text.data(), 1, text.size(), pipe);
+    pclose(pipe); 
+}
+#else
+#error "Unsupported platform"
+#endif

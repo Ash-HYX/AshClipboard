@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -Wl,--dependency-file=CMakeFiles/AshClipboard.dir/link.d CMakeFiles/AshClipboard.dir/src/main.cpp.o CMakeFiles/AshClipboard.dir/src/clipboard/clipboard.cpp.o CMakeFiles/AshClipboard.dir/src/network/client.cpp.o CMakeFiles/AshClipboard.dir/src/network/server.cpp.o -o AshClipboard

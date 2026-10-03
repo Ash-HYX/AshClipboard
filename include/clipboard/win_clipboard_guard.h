@@ -1,5 +1,5 @@
 #pragma once
-
+#ifdef __WIN32
 #include <windows.h>
 #include <stdexcept>
 
@@ -14,3 +14,4 @@ public:
         CloseClipboard();
     }
 };
+#endif
